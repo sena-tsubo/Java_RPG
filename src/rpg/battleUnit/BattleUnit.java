@@ -18,6 +18,7 @@ public abstract class BattleUnit extends Character implements Battlable {
 		setSpeed(speed);
 		this.power = power;
 		this.maxHp = this.hp;
+		
 		this.maxSpeed = this.speed;
 		this.maxPower = this.power;
 	}
@@ -56,7 +57,7 @@ public abstract class BattleUnit extends Character implements Battlable {
 		if (hp > 0) {
 			this.hp = hp; //hpが１より大きい値であるどうか
 		} else {
-			this.hp = 1;
+			this.hp = 1; // - 10000
 		}
 		
 	}

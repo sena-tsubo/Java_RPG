@@ -24,6 +24,7 @@ public class Magic {
 	
 	public void useMagic(BattleUnit u ,BattleUnit target) {
 		u.setMp(Math.max(u.getMp() - this.mpCost, 0)); //maxメソッドを使用してーの値にならないように修正
+		
 		System.out.println(u.getName() + "は" + this.name + "を唱えた");
 		System.out.println("====残りMP====\n");
 		System.out.println(u.getMp() + "/" + u.getMaxMp());
@@ -32,7 +33,7 @@ public class Magic {
 	}
 	
 	public boolean useMagicFlag(BattleUnit u) {
-		if(u.isAlive() && u.getMp() > mpCost) {
+		if(u.isAlive() && u.getMp() >= this.mpCost) {
 			return true;
 		}
 		System.out.println("魔法を使用することはできません。");
