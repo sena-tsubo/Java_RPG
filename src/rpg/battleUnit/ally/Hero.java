@@ -10,9 +10,11 @@ public class Hero extends Ally {
 	public Hero(String name, int hp, int speed, int power,int mp) {
 		super(name, hp, speed, power);
 		this.setMp(mp);
+		this.setMaxMp(mp);
 		this.magicArray = new Magic[5]; //勇者は最大5個の魔法を持てる[ , , , , ]
 		this.currentIndex = 0;
 		this.initialMagicArray();
+		
 	}
 	
 	public void attack(BattleUnit u) {
@@ -23,12 +25,12 @@ public class Hero extends Ally {
 			}
 			
 			case 2 -> {
-				if (this.magicArray[2].useMagicFlag(this)) {
-					this.magicArray[2].useMagic(this, u);
+				Magic selectMagic = this.selectMagic();
+				if (selectMagic.useMagicFlag(this)) {
+					selectMagic.useMagic(this, u);
 				} else {
 					super.attack(u);
 				}
-				
 			}
 			
 			case 3 -> {
@@ -36,6 +38,28 @@ public class Hero extends Ally {
 				super.attack(u);
 			}
 		}
+	}
+	
+	//魔法を選択するメソッドを定義します。
+	public Magic selectMagic() {
+		System.out.println("===魔法一覧===");
+		System.out.println("残りMP："+this.getMp());
+		Magic m;
+		//持っている魔法の数だけ番号をつけて表示する
+		for (int i = 0; i < this.currentIndex; i++) {
+			m = this.magicArray[i];
+			//各魔法名前と消費するMPを表示する。
+			System.out.println((i + 1) + "." + m.getName() + "(MP消費 : "+ m.getMpCost() + ")");
+		}
+		System.out.println("使用する魔法の番号を選んで下さい。");
+		int select = this.getSc().nextInt(); //入力してもらった数字を挿入する。なお数字以外(あああ)を入力するとエラー
+		//選んだ番号が魔法の数の範囲内かチェックする。例えば(3.滅び)までなのに4を選ばないための処理。
+		if (select < 1 || select > this.currentIndex) {
+			System.out.println(select + "は無効の値です。もう一度選択してください");
+			return this.selectMagic();
+		}
+		m = this.magicArray[select - 1]; //1から表示しているから、配列の添え字に合わせるため「-１」する。
+		return m; 
 	}
 	
 	//初期で勇者が持っている魔法を入れる
