@@ -27,9 +27,9 @@ public class Hero extends Ally {
 			}
 			
 			case 2 -> {
-				Magic selectMagic = this.selectMagic();
-				if (selectMagic.useMagicFlag(this)) {
-					selectMagic.useMagic(this, u);
+				Magic selectedMagic = this.selectMagic();
+				if (selectedMagic.useMagicFlag(this)) {
+					selectedMagic.useMagic(this, u);
 				} else {
 					super.attack(u);
 				}
@@ -55,6 +55,7 @@ public class Hero extends Ally {
 		}
 		System.out.println("使用する魔法の番号を選んで下さい。");
 		int select = this.getSc().nextInt(); //入力してもらった数字を挿入する。なお数字以外(あああ)を入力するとエラー
+		this.getSc().nextLine(); //nextInt()では読み取られない改行文字が残るので、ここで読み捨てる
 		//選んだ番号が魔法の数の範囲内かチェックする。例えば(3.滅び)までなのに4を選ばないための処理。
 		if (select < 1 || select > this.currentIndex) {
 			System.out.println(select + "は無効の値です。もう一度選択してください");
@@ -78,7 +79,7 @@ public class Hero extends Ally {
 	public void addMagic(int d , String n,int mpCost, int hpCost) {
 		magicArray[currentIndex++] =new Magic(d,n,mpCost,hpCost);
 	}
-	
+
 	public Magic[] getMagicArray() {
 		return magicArray;
 	}
