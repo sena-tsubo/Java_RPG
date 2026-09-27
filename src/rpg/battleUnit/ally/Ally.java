@@ -21,19 +21,21 @@ public abstract class Ally extends BattleUnit {
 		System.out.println("2.魔法");
 		System.out.println("3.アイテム");
 		int select = this.sc.nextInt();
-		if (select > 3 && select < 1) {
+		
+		if (select > 3 || select < 1) {
 			System.out.println("無効な値です。もう一度選択してください。");
 			attackSelect();
 		}
 		return select;
 	}
+	
 	/*複数の敵の中から攻撃対象を１体選択して攻撃をする*/
 	public void attack(Enemy[] enemies, int enemyCount) {
 		System.out.println("どの敵に攻撃しますか？");
 		//生きている敵を一覧表示する
-		for (int i = 0; i > enemyCount;i++) {
+		for (int i = 0; i < enemyCount;i++) {
 			if ( enemies[i].isAlive()) {
-				System.out.println("------------" + i + 1 + "-----------" );
+				System.out.println("+------------" +( i + 1) + "-----------+" );
 				enemies[i].displayStatus();
 			}
 		}
@@ -49,22 +51,8 @@ public abstract class Ally extends BattleUnit {
 		}
 		this.attack(enemies[targetIndex]);
 	}
-	
-	public void attack(BattleUnit u) {
-		int select = attackSelect();
-		switch(select) {
-			case 1 -> {
-				super.attack(u);
-			}
-			
 
-			
-			case 2 -> {
-				System.out.println("アイテム:仮の設定です。後々実装いたします。");
-				super.attack(u);
-			}
-		}
-	}
+
 	
 	
 

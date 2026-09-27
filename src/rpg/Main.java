@@ -41,7 +41,6 @@ public class Main {
 
 	        // 配列に格納し、そのインスタンスのステータスを表示する
 	        enemies[currentEnemyIndex] = newEnemy;
-	        enemies[currentEnemyIndex].displayStatus();
 	        
 	        // 次の敵を格納するためにインデックスを1つ進める
 	        currentEnemyIndex++;
