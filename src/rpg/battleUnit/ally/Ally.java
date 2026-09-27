@@ -25,7 +25,7 @@ public abstract class Ally extends BattleUnit {
 
 		if (select > 3 || select < 1) {
 			System.out.println("無効な値です。もう一度選択してください。");
-			attackSelect();
+			return attackSelect();
 		}
 		return select;
 	}
@@ -40,9 +40,9 @@ public abstract class Ally extends BattleUnit {
 				enemies[i].displayStatus();
 			}
 		}
-		String target = getSc().nextLine();//文字列として挿入されても大丈夫のように
-		int targetIndex = Integer.parseInt(target) - 1;//添え字に合わせる形
-		if (0 > targetIndex || targetIndex < enemyCount) {
+		int targetIndex = getSc().nextInt() - 1;//添え字に合わせる形
+		getSc().nextLine(); //nextInt()では読み取られない改行文字が残るので、ここで読み捨てる
+		if (targetIndex < 0 || targetIndex >= enemyCount) {
 			for (int i = 0; i < enemyCount; i++) {
 				if (enemies[i].isAlive()) {
 					targetIndex = i;
