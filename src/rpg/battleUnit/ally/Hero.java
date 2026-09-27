@@ -17,6 +17,8 @@ public class Hero extends Ally {
 		
 	}
 	
+
+
 	public void attack(BattleUnit u) {
 		int select = attackSelect();
 		switch(select) {

@@ -41,7 +41,6 @@ public class Main {
 
 	        // 配列に格納し、そのインスタンスのステータスを表示する
 	        enemies[currentEnemyIndex] = newEnemy;
-	        enemies[currentEnemyIndex].displayStatus();
 	        
 	        // 次の敵を格納するためにインデックスを1つ進める
 	        currentEnemyIndex++;
@@ -50,33 +49,36 @@ public class Main {
 	    System.out.println("敵の数は" + spawnCount);
 	}
 	
+	/**
+	 * 敵が一人でも生きているかを確認します。
+	 * @return 一人でも生きていればtrue、全員倒れていればfalseを返します。
+	 */
 	public static boolean isEnemiesAlive() {
-		int count = 0;
+		// 配列内の敵を一体ずつチェック
 		for (int i = 0; i < currentEnemyIndex; i++) {
-			if(!enemies[i].isAlive()) {
-				count++;
+			// 一体でも生きていれば、その時点でtrueを返す
+			if (enemies[i].isAlive()) {
+				return true;
 			}
 		}
-		return count < currentEnemyIndex;
+		// ループが最後まで終わった（生きている敵がいなかった）場合、falseを返す
+		return false;
 	}
 	
+	/**
+	 * 味方が一人でも生きているかを確認します。
+	 * @return 一人でも生きていればtrue、全員倒れていればfalseを返します。
+	 */
 	public static boolean isAlliesAlive() {
-		int count = 0;
+		// 配列内の味方を一人ずつチェック
 		for (int i = 0; i < currentAllyIndex; i++) {
-			if(!allies[i].isAlive()) {
-				count++;
+			// 一人でも生きていれば、その時点でtrueを返す
+			if (allies[i].isAlive()) {
+				return true;
 			}
 		}
-		
-		return count < currentAllyIndex;
-	}
-	
-	public static boolean enemyArrayoutOf(int enemy) {
-		return enemy < currentEnemyIndex;
-	}
-	
-	public static boolean allyArrayoutOf(int ally) {
-		return ally < currentAllyIndex;
+		// ループが最後まで終わった（生きている味方がいなかった）場合、falseを返す
+		return false;
 	}
 	
 	//のちのち引数を定義します！
@@ -85,34 +87,54 @@ public class Main {
 		currentAllyIndex++;
 		allies[0].displayStatus();
 		spawnEnemies();
-		int enemy = 0; //どの敵のターンか調べている。
-		int ally = 0; //どの味方のターンか調べている。
+
+		int turnCount = 1;
+		//どちらかが全滅するまでループする
 		while(isAlliesAlive() && isEnemiesAlive()) {
-			System.out.println("戦闘開始");
-			
+		    System.out.println(turnCount + "ターン目===");
+		    
+		    //味方のターン
+		    for (int i = 0; i < currentAllyIndex; i++) {
+		        if(allies[i].isAlive()) {
+		            System.out.println(allies[i].getName() + "のターン");
+		            allies[i].attack(enemies, currentEnemyIndex);
+		            if (!isEnemiesAlive()) {
+		                break;
+		            }
+		        }
+		    }
+		    
+		    if (!isEnemiesAlive()) {
+		        break;
+		    }
+		    
+		    //敵のターン
+		    for (int i = 0; i < currentEnemyIndex; i++) {
+		        if (enemies[i].isAlive()) {
+		            System.out.println(enemies[i].getName() + "のターン");
+		            // 生きている味方をランダムに選択
+		            Random random = new Random();
+		            int targetIndex;
+		            do {
+		                targetIndex = random.nextInt(currentAllyIndex);
+		            } while (!allies[targetIndex].isAlive());
+		            
+		            enemies[i].attack(allies[targetIndex]);
+		            if(!isAlliesAlive()) {
+		                break;
+		            }
+		        }
+		    }
+		    turnCount++;
+		    System.out.println(" ");
 		}
-		//左辺の式の型指定を(多態性)を使用してどの敵モブでも動くようにして
-//		Enemy enemy = new Goblin("ゴブリン",130, 12, 5); 
-//		Hero hero = new Hero("勇者" , 150, 15,10,100);
-//		int count = 1;
-//		while(enemy.isAlive() && hero.isAlive()) {
-//			System.out.println(count++ + "ターン目===");
-//			if (enemy.getSpeed() > hero.getSpeed()) {
-//				enemy.attack(hero);
-//				hero.attack(enemy);
-//				System.out.println(" ");
-//			} else {
-//				hero.attack(enemy);
-//				enemy.attack(hero);
-//				System.out.println(" ");
-//			}
-//		}
-//		System.out.println("＝＝＝＝　バトル終了　＝＝＝＝");
-//		if(enemy.isAlive()) {
-//			System.out.println("スライムの勝利");
-//		} else {
-//			System.out.println(hero.getName() + "の勝利");
-//		}
+
+		System.out.println("＝＝＝＝　バトル終了　＝＝＝＝");
+		if(isAlliesAlive()) {
+		    System.out.println("勇者たちの勝利！");
+		} else {
+		    System.out.println("勇者たちは敗北した...");
+		}
 	}
 
 }
