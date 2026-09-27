@@ -1,3 +1,5 @@
-2026/09/16-16:44:06.717 2cb0 Reusing MANIFEST S:\99 教員用データ\佐藤世成\import_java\RPG\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/MANIFEST-000001
-2026/09/16-16:44:06.761 2cb0 Recovering log #3
-2026/09/16-16:44:06.782 2cb0 Reusing old log S:\99 教員用データ\佐藤世成\import_java\RPG\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/000003.log 
+2026/09/27-10:39:02.217 4334 Log #3: 1 ops saved to Table #4 OK
+2026/09/27-10:39:02.225 4334 Archiving C:\Users\three\OneDrive\デスクトップ\Java\Java_RPG\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/000003.log: OK
+2026/09/27-10:39:02.225 4334 Table #4: 1 entries OK
+2026/09/27-10:39:02.229 4334 Archiving C:\Users\three\OneDrive\デスクトップ\Java\Java_RPG\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/MANIFEST-000001: OK
+2026/09/27-10:39:02.243 4334 **** Repaired leveldb C:\Users\three\OneDrive\デスクトップ\Java\Java_RPG\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database; recovered 1 files; 130 bytes. Some data may have been lost. ****

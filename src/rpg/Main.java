@@ -50,33 +50,36 @@ public class Main {
 	    System.out.println("敵の数は" + spawnCount);
 	}
 	
+	/**
+	 * 敵が一人でも生きているかを確認します。
+	 * @return 一人でも生きていればtrue、全員倒れていればfalseを返します。
+	 */
 	public static boolean isEnemiesAlive() {
-		int count = 0;
+		// 配列内の敵を一体ずつチェック
 		for (int i = 0; i < currentEnemyIndex; i++) {
-			if(!enemies[i].isAlive()) {
-				count++;
+			// 一体でも生きていれば、その時点でtrueを返す
+			if (enemies[i].isAlive()) {
+				return true;
 			}
 		}
-		return count < currentEnemyIndex;
+		// ループが最後まで終わった（生きている敵がいなかった）場合、falseを返す
+		return false;
 	}
 	
+	/**
+	 * 味方が一人でも生きているかを確認します。
+	 * @return 一人でも生きていればtrue、全員倒れていればfalseを返します。
+	 */
 	public static boolean isAlliesAlive() {
-		int count = 0;
+		// 配列内の味方を一人ずつチェック
 		for (int i = 0; i < currentAllyIndex; i++) {
-			if(!allies[i].isAlive()) {
-				count++;
+			// 一人でも生きていれば、その時点でtrueを返す
+			if (allies[i].isAlive()) {
+				return true;
 			}
 		}
-		
-		return count < currentAllyIndex;
-	}
-	
-	public static boolean enemyArrayoutOf(int enemy) {
-		return enemy < currentEnemyIndex;
-	}
-	
-	public static boolean allyArrayoutOf(int ally) {
-		return ally < currentAllyIndex;
+		// ループが最後まで終わった（生きている味方がいなかった）場合、falseを返す
+		return false;
 	}
 	
 	//のちのち引数を定義します！
