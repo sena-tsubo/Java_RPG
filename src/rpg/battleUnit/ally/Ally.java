@@ -21,7 +21,8 @@ public abstract class Ally extends BattleUnit {
 		System.out.println("2.魔法");
 		System.out.println("3.アイテム");
 		int select = this.sc.nextInt();
-		
+		this.sc.nextLine(); //nextInt()では読み取られない改行文字が残るので、ここで読み捨てる
+
 		if (select > 3 || select < 1) {
 			System.out.println("無効な値です。もう一度選択してください。");
 			attackSelect();
